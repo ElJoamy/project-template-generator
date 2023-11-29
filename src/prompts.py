@@ -1,5 +1,5 @@
 from enum import Enum
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 PROJECT_TEMPLATE = """You are an {major} senior student looking for a final project.
     In order to classify for your dissertation you need to present a project proposal with the following
@@ -31,3 +31,5 @@ class ProjectParams(BaseModel):
     major: Major
     language: Language
     n_examples: int
+    temperature: float = Field(default=0.7, ge=0.0, le=2.0)
+    # donde default es el valor por defecto, ge es mayor o igual y le es menor o igual

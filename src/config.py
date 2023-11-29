@@ -9,6 +9,8 @@ class GPTModel(str, Enum):
 
 
 class Settings(BaseSettings):
+    service_name: str = "Cloud Project Generator"
+    k_revision: str = "local"
     log_level: str = "DEBUG"
     openai_key: str
     model: GPTModel = GPTModel.gpt_3_5_turbo

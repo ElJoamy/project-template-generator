@@ -6,7 +6,6 @@ from src.parsers import get_project_parser, ProjectIdeas
 
 _SETTINGS = get_settings()
 
-
 class TemplateLLM:
     def __init__(self):
         self.llm = ChatOpenAI(
@@ -20,8 +19,10 @@ class TemplateLLM:
         )
 
     def generate(self, params: ProjectParams) -> ProjectIdeas:
-        _input = self.prompt_template.format(**params.dict())
-        output = self.llm.predict(_input)
+        params_dict = params.dict() 
+        temperature = params_dict.pop("temperature", None)
+        _input = self.prompt_template.format(**params_dict)
+        output = self.llm.predict(_input, temperature=temperature)
         return self.parser.parse(output)
 
     def generate_and_save(self, params: ProjectParams, out_file: str):
